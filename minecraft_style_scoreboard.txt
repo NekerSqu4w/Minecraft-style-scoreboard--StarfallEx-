@@ -116,7 +116,7 @@ if CLIENT then
                 },
                 {
                     animation = {
-                        delay=0.1,
+                        delay=0.07,
                         list={
                             color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."A",
                             color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."An",
@@ -159,36 +159,31 @@ if CLIENT then
             title = {
                 delay=0.2,
                 list = {
-                    "&6&l>",
-                    "&6&l>>",
-                    "&6&l>> ",
-                    "&6&l>> &6H",
-                    "&6&l>> &6He",
-                    "&6&l>> &6Hel",
-                    "&6&l>> &6Hell",
-                    "&6&l>> &6Hello",
-                    "&6&l>> &6Hello ",
-                    "&6&l>> &6Hello &aP",
-                    "&6&l>> &6Hello &aPi",
-                    "&6&l>> &6Hello &aPig",
-                    "&6&l>> &6Hello &aPigg",
-                    "&6&l>> &6Hello &aPiggy",
-                    "&6&l>> &6Hello &aPiggy ",
-                    "&6&l>> &6Hello &aPiggy &6&l<",
+                    "&6&l>> &6&l<<",
+                    "&6&l>> &6H &6&l<<",
+                    "&6&l>> &6He &6&l<<",
+                    "&6&l>> &6Hel &6&l<<",
+                    "&6&l>> &6Hell &6&l<<",
+                    "&6&l>> &6Hello &6&l<<",
+                    "&6&l>> &6Hello &aP &6&l<<",
+                    "&6&l>> &6Hello &aPi &6&l<<",
+                    "&6&l>> &6Hello &aPig &6&l<<",
+                    "&6&l>> &6Hello &aPigg &6&l<<",
                     "&6&l>> &6Hello &aPiggy &6&l<<",
-                    "&6&l>> &6Hello &aPiggy &6&l<",
-                    "&6&l>> &6Hello &aPigg",
-                    "&6&l>> &6Hello &aPig",
-                    "&6&l>> &6Hello &aPi",
-                    "&6&l>> &6Hello &aP",
-                    "&6&l>> &6Hello ",
-                    "&6&l>> &6Hello",
-                    "&6&l>> &6Hell",
-                    "&6&l>> &6Hel",
-                    "&6&l>> &6He",
-                    "&6&l>> &6H",
-                    "&6&l>> ",
-                    "&6&l>>"
+                    "&6&l>> &6Hello &aPigg &6&l<<",
+                    "&6&l>> &6Hello &aPig &6&l<<",
+                    "&6&l>> &6Hello &aPi &6&l<<",
+                    "&6&l>> &6Hello &aP &6&l<<",
+                    "&6&l>> &6Hello &6&l<<",
+                    "&6&l>> &6Hell &6&l<<",
+                    "&6&l>> &6Hel &6&l<<",
+                    "&6&l>> &6He &6&l<<",
+                    "&6&l>> &6H &6&l<<",
+                    "&6&l>> &6&l<<",
+                    "&e&l>> &e&l<<",
+                    "&a&l>> &a&l<<",
+                    "&c&l>> &c&l<<",
+                    "&2&l>> &2&l<<",
                 }
             }
     
@@ -201,7 +196,8 @@ if CLIENT then
             if show then
                 render.setFont(font)
                 text = "&4Dark Red, &@-r255-g150-b90-a255-endCustom color !, &cRed , &6 Gold &lGold Bold , &eYellow, &2Dark green, &aGreen, &b Aqua, &3Dark aqua, &1Dark blue, &9Blue, &5Light Purple, &1 White/ Reset color, &7Gray, &8Dark gray, &0Black"
-                drawColoredText(0,700,text,font,fond_bold)
+                x,y = drawColoredText(0,700,text,font,fond_bold)
+                print(x,y) //you can also return hes final pos x and y
             end
             
         end)
@@ -302,7 +298,7 @@ if CLIENT then
             color_id = text[i]:sub(0,1)
 
             render.setFont(font)
-            add_width, _ = render.getTextSize(remove_input_color(text[i]):sub(2))
+            add_width, height = render.getTextSize(remove_input_color(text[i]):sub(2))
 
             if color_list["&"..color_id] then
                 if color_list["&"..color_id] == "bold" then
@@ -330,10 +326,13 @@ if CLIENT then
             end
             new_width = new_width + add_width
         end
+        
+        return new_width, new_height+height
     end
 
     local max_width = 0
     local sl = {}
+    local title_width = 0
     function scoreboard(title,score_list,font,fond_bold,rounded_border)
         local scrw, scrh = render.getResolution()
         
@@ -401,7 +400,7 @@ if CLIENT then
         end
 
         render.setColor(Color(255,255,255))
-        drawColoredText(scrw - final_scoreboard_size.w + 11, scrh/2 - final_scoreboard_size.h/2 + 3,title.list[sl['title'].show_id],font,fond_bold)
+        title_width,_ = drawColoredText(scrw - final_scoreboard_size.w/2 + 11 - title_width/2, scrh/2 - final_scoreboard_size.h/2 + 3,title.list[sl['title'].show_id],font,fond_bold)
         
         render.setColor(Color(255,101,85))
         for i=1, #score_list do
