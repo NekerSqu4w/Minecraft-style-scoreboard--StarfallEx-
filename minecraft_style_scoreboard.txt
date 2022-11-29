@@ -23,20 +23,11 @@ if CLIENT then
     
     //How to add a custom color ?
     --[[
-        Example: &@-r255-g150-b50-a255-endYour text just here !
-        
-        Parameter:
-        &@    #Will setup the start of the color
-        -end  #Will setup the end of the color
-        
-        #To change the color
-        -r<red value>
-        -g<green value>
-        -b<blue value>
-        -a<alpha value>
+        Example: color_format(Color(150,255,150,255)).."Your text just here !"
+
+        local color_formatted = color_format(Color(r,g,b,a))
     ]]
-    
-    
+
     //Setup your custom font !
     local font = render.createFont("Courier New", 22, 100, false, false, false, false, false, true)
     local font_bold = render.createFont("Courier New", 22, 800, false, false, false, false, false, true)
