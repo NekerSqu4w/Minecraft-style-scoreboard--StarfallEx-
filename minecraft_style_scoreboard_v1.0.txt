@@ -1,0 +1,399 @@
+--@name Minecraft Style Scoreboard
+--@author AstalNeker
+
+if SERVER then
+end
+
+if CLIENT then
+    
+    //Some placeholder you can use !
+    --[[
+        %player_name%      #To show your player name
+        %player_health%    #To show your health
+        %player_maxhealth% #To show your MAX health
+        
+        %world_map%        #To show map name
+        %server_time%      #To show your computer time
+        %teams_color%      #To write the color of your teams
+        %teams_name%       #To show your team name
+        
+        Your can also print the value of a placeholder by using:
+        value = placeholder('placeholder name')
+    ]]
+    
+    //How to add a custom color ?
+    --[[
+        Example: &@-r255-g150-b50-a255-endYour text just here !
+        
+        Parameter:
+        &@    #Will setup the start of the color
+        -end  #Will setup the end of the color
+        
+        #To change the color
+        -r<red value>
+        -g<green value>
+        -b<blue value>
+        -a<alpha value>
+    ]]
+    
+    
+    //Setup your custom font !
+    local font = render.createFont("Courier New", 22, 100, false, false, false, false, false, true)
+    local font_bold = render.createFont("Courier New", 22, 800, false, false, false, false, false, true)
+    
+
+    function load_scoreboard()
+        local all_ply = find.allPlayers()
+        hook.add("drawhud","",function()
+            local final_date = placeholder("%server_time%"):sub(3,string.find(placeholder("%server_time%"), "-h", 0)-1):replace("-M","/"):replace("-Y","/")
+            local score = {
+                {
+                    animation = {
+                        delay=-1,
+                        list={
+                            final_date .. " &7%world_map%",
+                        }
+                    },
+                    score = 4
+                },
+                {
+                    animation = {
+                        delay=-1,
+                        list={
+                            "",
+                        }
+                    },
+                    score = 3
+                },
+                {
+                    animation = {
+                        delay=0.3,
+                        list={
+                            "&4&l>> &b%player_name%",
+                            "&c&l>> &b%player_name%",
+                            "&6&l>> &b%player_name%",
+                            "&e&l>> &b%player_name%",
+                            "&e&l>> &b%player_name%",
+                            "&6&l>> &b%player_name%",
+                            "&c&l>> &b%player_name%",
+                            "&4&l>> &b%player_name%"
+                        }
+                    },
+                    score = 2
+                },
+                {
+                    animation = {
+                        delay=-1,
+                        list={
+                            "&6Rank: &@%teams_color%&l%teams_name%",
+                        }
+                    },
+                    score = 1
+                },
+                {
+                    animation = {
+                        delay=-1,
+                        list={
+                            "",
+                        }
+                    },
+                    score = 0
+                },
+                {
+                    animation = {
+                        delay=0.2,
+                        list={
+                            "&6A",
+                            "&aAn",
+                            "&cAni",
+                            "&6Anim",
+                            "&4Anima",
+                            "&eAnimat",
+                            "&2Animati",
+                            "&6Animatio",
+                            "&cAnimation",
+                            "&6Animatio ",
+                            "&6Animati",
+                            "&aAnimat",
+                            "&eAnima",
+                            "&6Anim",
+                            "&6Ani",
+                            "&6An"
+                        }
+                    },
+                    score = -1
+                },
+                {
+                    animation = {
+                        delay=0.1,
+                        list={
+                            "&6A",
+                            "&aAn",
+                            "&cAni",
+                            "&6Anim",
+                            "&4Anima",
+                            "&eAnimat",
+                            "&2Animati",
+                            "&6Animatio",
+                            "&cAnimation",
+                            "&6Animatio ",
+                            "&6Animati",
+                            "&aAnimat",
+                            "&eAnima",
+                            "&6Anim",
+                            "&6Ani",
+                            "&6An"
+                        }
+                    },
+                    score = -1500
+                }
+            }
+            
+            title = {
+                delay=0.2,
+                list = {
+                    "&6&l>",
+                    "&6&l>>",
+                    "&6&l>> ",
+                    "&6&l>> &6H",
+                    "&6&l>> &6He",
+                    "&6&l>> &6Hel",
+                    "&6&l>> &6Hell",
+                    "&6&l>> &6Hello",
+                    "&6&l>> &6Hello ",
+                    "&6&l>> &6Hello &aP",
+                    "&6&l>> &6Hello &aPi",
+                    "&6&l>> &6Hello &aPig",
+                    "&6&l>> &6Hello &aPigg",
+                    "&6&l>> &6Hello &aPiggy",
+                    "&6&l>> &6Hello &aPiggy ",
+                    "&6&l>> &6Hello &aPiggy &6&l<",
+                    "&6&l>> &6Hello &aPiggy &6&l<<",
+                    "&6&l>> &6Hello &aPiggy &6&l<",
+                    "&6&l>> &6Hello &aPigg",
+                    "&6&l>> &6Hello &aPig",
+                    "&6&l>> &6Hello &aPi",
+                    "&6&l>> &6Hello &aP",
+                    "&6&l>> &6Hello ",
+                    "&6&l>> &6Hello",
+                    "&6&l>> &6Hell",
+                    "&6&l>> &6Hel",
+                    "&6&l>> &6He",
+                    "&6&l>> &6H",
+                    "&6&l>> ",
+                    "&6&l>>"
+                }
+            }
+    
+            //draw the final scoreboard
+            scoreboard(title, score, font, fond_bold)
+            
+            //A color testing text D:
+            local show = false //true or false
+            if show then
+                render.setFont(font)
+                text = "&4Dark Red, &@-r255-g150-b90-a255-endCustom color !, &cRed , &6 Gold &lGold Bold , &eYellow, &2Dark green, &aGreen, &b Aqua, &3Dark aqua, &1Dark blue, &9Blue, &5Light Purple, &1 White/ Reset color, &7Gray, &8Dark gray, &0Black"
+                drawColoredText(0,700,text,font,fond_bold)
+            end
+            
+        end)
+    end
+
+    //You also add custom color if you want !
+    //but just don't remove 'bold' and 'custom'
+    local color_list = {
+        ['&4'] = Color(170,0,0),
+        ['&c'] = Color(255,85,85),
+        ['&6'] = Color(255,170,0),
+        ['&e'] = Color(255,255,85),
+        ['&2'] = Color(0,170,0),
+        ['&a'] = Color(85,255,85),
+        ['&b'] = Color(85,255,255),
+        ['&3'] = Color(0,170,170),
+        ['&1'] = Color(0,0,170),
+        ['&9'] = Color(85,85,255),
+        ['&d'] = Color(255,85,255),
+        ['&5'] = Color(170,0,170),
+        ['&f'] = Color(255,255,255),
+        ['&7'] = Color(170,170,170),
+        ['&8'] = Color(85,85,85),
+        ['&0'] = Color(0,0,0),
+        ['&l'] = 'bold',
+        ['&@'] = 'custom'
+    }
+    
+    function placeholder(text)
+        local all_placeholder = {
+            ["%player_name%"] = function(placeholder) return player():getName() end,
+            ["%player_health%"] = function(placeholder) return player():getHealth() end,
+            ["%player_maxhealth%"] = function(placeholder) return player():getMaxHealth() end,
+                
+            ["%world_map%"] = function(placeholder) return game.getMap() end,
+            ["%server_time%"] = function(placeholder)
+                function a(num)
+                    if num < 10 then num = "0" .. num end
+                    return num
+                end
+                
+                local time = os.time() + 3600
+                local formated = string.formattedTime(time)
+                local ss = formated.s
+                local mm = formated.m
+                local hh = formated.h%24
+
+                local DD = (time/86400)%32 - 1
+                local MM = (time/2.628e+6)%12
+                local YYYY = ((time/86400)/365) - 31
+
+                return "-D"..a(math.round(DD)).."-M"..a(math.round(MM)).."-Y"..math.round(YYYY).."-h"..a(math.round(hh)).."-m"..a(math.round(mm)).."-s"..a(math.round(ss))
+            end,
+
+            ["%teams_color%"] = function(placeholder)
+                local team_color = team.getColor(player():getTeam())
+                return "-r"..team_color.r.."-g"..team_color.g.."-b"..team_color.b.."-a"..team_color.a.."-end"
+            end,
+            ["%teams_name%"] = function(placeholder) return team.getName(player():getTeam()) end
+        }
+
+        local final_text = text
+        for id, value in pairs(all_placeholder) do
+            final_text = final_text:replace(id,value(id))
+        end
+        return final_text    
+    end
+    
+    function remove_input_color(text)
+        local final_text = text
+        for id, _ in pairs(color_list) do
+            if id == "&@" then
+                if string.find(final_text,"-end",0) then
+                    final_text = final_text:sub(string.find(final_text,"-end",0) + 4,#final_text)
+                end
+            else
+                final_text = final_text:replace(id,"")
+            end
+        end
+        return final_text
+    end
+
+    function drawColoredText(x,y,text,font,fond_bold)
+        text = "&f" .. text .. "&f"
+        text = placeholder(text):split("&")
+        last_col = Color(255,255,255)
+
+        new_width, new_height = x, y
+        for i=1, #text do
+            color_id = text[i]:sub(0,1)
+
+            render.setFont(font)
+            add_width, _ = render.getTextSize(remove_input_color(text[i]):sub(2))
+
+            if color_list["&"..color_id] then
+                if color_list["&"..color_id] == "bold" then
+                    render.setFont(font_bold)
+                    render.setColor(last_col)
+                    render.drawSimpleText(new_width, new_height, text[i]:sub(2,#text[i]), 0, 0)
+                else
+                    render.setFont(font)
+                    if color_list["&"..color_id] == "custom" then
+                        local rgba = text[i]:replace("-end"," "):split(" ")[1]:sub(2):replace("-r",""):replace("-g"," "):replace("-b"," "):replace("-a"," "):split(" ")
+                        local r,g,b,a = tonumber(rgba[1]),tonumber(rgba[2]),tonumber(rgba[3]),tonumber(rgba[4])
+
+                        last_col = Color(r,g,b,a)
+                        render.setColor(last_col)
+                        render.drawSimpleText(new_width, new_height, text[i]:sub(string.find(text[i],"-end",0) + 4,#text[i]), 0, 0)
+                    else
+                        last_col = color_list["&"..color_id]
+                        render.setColor(last_col)
+                        render.drawSimpleText(new_width, new_height, text[i]:sub(2,#text[i]), 0, 0)
+                    end
+                end
+            else
+                render.setColor(Color(255,255,255))
+                render.drawSimpleText(new_width, new_height, text[i], 0, 0)
+            end
+            new_width = new_width + add_width
+        end
+    end
+
+    local max_width = 0
+    local sl = {}
+    function scoreboard(title,score_list,font,fond_bold)
+        local scrw, scrh = render.getResolution()
+        
+        //sort from highest to lowest score
+        table.sort(score_list, function(a,b)
+            if a.score > b.score then
+                return b.score
+            end
+        end)
+        
+        if not sl['title'] then sl['title'] = {} end
+        if not sl['title'].show_id then sl['title'].show_id = 1 end
+        if not sl['title'].last_time then sl['title'].last_time = timer.curtime() end
+
+        if title.delay == -1 then
+            else
+            if (timer.curtime() - sl['title'].last_time) >= title.delay then
+                sl['title'].show_id = sl['title'].show_id + 1
+                if sl['title'].show_id > #title.list then sl['title'].show_id = 1 end
+                    
+                sl['title'].last_time = timer.curtime()
+            end
+        end
+
+        //calculate the width and height of scoreboard
+        title_width, _ = render.getTextSize(remove_input_color(title.list[sl['title'].show_id]))
+        max_width = title_width + 90
+        for i=1, #score_list do
+            if not sl[i] then sl[i] = {} end
+            if not sl[i].show_id then sl[i].show_id = 1 end
+            if not sl[i].last_time then sl[i].last_time = timer.curtime() end
+
+            if score_list[i].animation.delay == -1 then
+            else
+                if (timer.curtime() - sl[i].last_time) >= score_list[i].animation.delay then
+                    sl[i].show_id = sl[i].show_id + 1
+                    if sl[i].show_id > #score_list[i].animation.list then sl[i].show_id = 1 end
+                    
+                    sl[i].last_time = timer.curtime()
+                end
+            end
+
+            current_text = score_list[i].animation.list[sl[i].show_id]
+            score_width, _ = render.getTextSize(remove_input_color(current_text))
+            score_width2, _ = render.getTextSize(tostring(score_list[i].score))
+ 
+            if (score_width+score_width2) > max_width then
+                max_width = score_width+score_width2
+            end
+        end
+        final_scoreboard_size = {w=max_width - 70,h=#score_list*22 + 40}
+
+        
+        //Draw the final scoreboard
+        render.setColor(Color(0,0,0,150))
+        render.drawRect(scrw - final_scoreboard_size.w,scrh/2 - final_scoreboard_size.h/2,final_scoreboard_size.w,final_scoreboard_size.h)
+        render.setColor(Color(0,0,0,50))
+        render.drawRect(scrw - final_scoreboard_size.w,scrh/2 - final_scoreboard_size.h/2,final_scoreboard_size.w,30)
+        
+
+        render.setColor(Color(255,255,255))
+        drawColoredText(scrw - final_scoreboard_size.w + 11, scrh/2 - final_scoreboard_size.h/2 + 3,title.list[sl['title'].show_id],font,fond_bold)
+        
+        render.setColor(Color(255,101,85))
+        for i=1, #score_list do
+            _, score_height = render.getTextSize(current_text)
+            render.drawSimpleText(scrw - 5, scrh/2 - final_scoreboard_size.h/2 + 3 + 8 + i*score_height, "" .. score_list[i].score, 2, 0) 
+        end
+
+        render.setColor(Color(255,255,255))
+        for i=1, #score_list do
+            current_text = score_list[i].animation.list[sl[i].show_id]
+            _, score_height = render.getTextSize(remove_input_color(current_text))
+            drawColoredText(scrw - 5 - final_scoreboard_size.w + 15, scrh/2 - final_scoreboard_size.h/2 + 3 + 8 + i*score_height,current_text,font,fond_bold)
+        end
+    end
+    
+    load_scoreboard()
+end
