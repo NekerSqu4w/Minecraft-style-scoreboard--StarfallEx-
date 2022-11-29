@@ -359,7 +359,7 @@ if CLIENT then
         end
 
         //calculate the width and height of scoreboard
-        title_width, _ = render.getTextSize(remove_input_color(title.list[sl['title'].show_id]))
+        title_width, title_height = render.getTextSize(remove_input_color(title.list[sl['title'].show_id]))
         max_width = title_width + 90
         for i=1, #score_list do
             if not sl[i] then sl[i] = {} end
@@ -384,7 +384,7 @@ if CLIENT then
                 max_width = score_width+score_width2
             end
         end
-        final_scoreboard_size = {w=max_width - 70,h=#score_list*22 + 40}
+        final_scoreboard_size = {w=max_width - 70,h=#score_list*title_height + 40}
 
         
         //Draw the final scoreboard
