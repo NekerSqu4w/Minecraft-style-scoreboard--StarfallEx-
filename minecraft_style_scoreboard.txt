@@ -101,7 +101,7 @@ if CLIENT then
                 },
                 {
                     animation = {
-                        delay=0.2,
+                        delay=0.3,
                         list={
                             "&6A",
                             "&aAn",
@@ -127,22 +127,38 @@ if CLIENT then
                     animation = {
                         delay=0.1,
                         list={
-                            "&6A",
-                            "&aAn",
-                            "&cAni",
-                            "&6Anim",
-                            "&4Anima",
-                            "&eAnimat",
-                            "&2Animati",
-                            "&6Animatio",
-                            "&cAnimation",
-                            "&6Animatio ",
-                            "&6Animati",
-                            "&aAnimat",
-                            "&eAnima",
-                            "&6Anim",
-                            "&6Ani",
-                            "&6An"
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."A",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."An",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Ani",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Anim",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Anima",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animat",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animati",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animatio",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation ",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation R",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Ra",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Rai",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Rain",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Rainb",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Rainbo",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Rainbow",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Rainbo",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Rainb",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Rain",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Rai",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation Ra",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation R",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation ",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animation",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animatio",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animati",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Animat",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Anima",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Anim",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."Ani",
+                            color_format(Color(timer.curtime() * 100,1,1):hsvToRGB()).."An"
                         }
                     },
                     score = -1500
@@ -223,6 +239,14 @@ if CLIENT then
         ['&@'] = 'custom'
     }
     
+    function color_format(color_rgba)
+        color_rgba.r = color_rgba.r or 255
+        color_rgba.g = color_rgba.g or 255
+        color_rgba.b = color_rgba.b or 255
+        color_rgba.a = color_rgba.a or 255
+        return "&@-r"..color_rgba.r.."-g"..color_rgba.g.."-b"..color_rgba.b.."-a"..color_rgba.a.."-end"
+    end
+
     function placeholder(text)
         local all_placeholder = {
             ["%player_name%"] = function(placeholder) return player():getName() end,
