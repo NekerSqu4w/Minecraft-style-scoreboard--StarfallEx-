@@ -186,7 +186,8 @@ if CLIENT then
             }
     
             //draw the final scoreboard
-            scoreboard(title, score, font, fond_bold)
+            //scoreboard(title,score_list,font,fond_bold,rounded_border)
+            scoreboard(title, score, font, fond_bold, true)
             
             //A color testing text D:
             local show = false //true or false
@@ -318,7 +319,7 @@ if CLIENT then
 
     local max_width = 0
     local sl = {}
-    function scoreboard(title,score_list,font,fond_bold)
+    function scoreboard(title,score_list,font,fond_bold,rounded_border)
         local scrw, scrh = render.getResolution()
         
         //sort from highest to lowest score
@@ -372,11 +373,17 @@ if CLIENT then
 
         
         //Draw the final scoreboard
-        render.setColor(Color(0,0,0,150))
-        render.drawRect(scrw - final_scoreboard_size.w,scrh/2 - final_scoreboard_size.h/2,final_scoreboard_size.w,final_scoreboard_size.h)
-        render.setColor(Color(0,0,0,50))
-        render.drawRect(scrw - final_scoreboard_size.w,scrh/2 - final_scoreboard_size.h/2,final_scoreboard_size.w,30)
-        
+        if rounded_border then
+            render.setColor(Color(0,0,0,150))
+            render.drawRoundedBox(16,scrw - final_scoreboard_size.w,scrh/2 - final_scoreboard_size.h/2,final_scoreboard_size.w,final_scoreboard_size.h)
+            render.setColor(Color(0,0,0,50))
+            render.drawRoundedBox(16,scrw - final_scoreboard_size.w,scrh/2 - final_scoreboard_size.h/2,final_scoreboard_size.w,30)
+        else
+            render.setColor(Color(0,0,0,150))
+            render.drawRect(scrw - final_scoreboard_size.w,scrh/2 - final_scoreboard_size.h/2,final_scoreboard_size.w,final_scoreboard_size.h)
+            render.setColor(Color(0,0,0,50))
+            render.drawRect(scrw - final_scoreboard_size.w,scrh/2 - final_scoreboard_size.h/2,final_scoreboard_size.w,30)
+        end
 
         render.setColor(Color(255,255,255))
         drawColoredText(scrw - final_scoreboard_size.w + 11, scrh/2 - final_scoreboard_size.h/2 + 3,title.list[sl['title'].show_id],font,fond_bold)
